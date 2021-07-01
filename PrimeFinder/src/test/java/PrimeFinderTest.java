@@ -4,6 +4,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.LinkedList;
+import java.util.List;
 
 public class PrimeFinderTest {
     @Before
@@ -25,7 +28,7 @@ public class PrimeFinderTest {
     }
 
     @Test
-    public void classHasBeginField() {
+    public void beginFieldExists() {
         String fieldName = "begin";
         PrimeFinder primeFinder = new PrimeFinder();
         Class primeFinderClass = primeFinder.getClass();
@@ -37,7 +40,7 @@ public class PrimeFinderTest {
     }
 
     @Test
-    public void beginFieldTypeIsCastableAsInteger() throws Exception {
+    public void beginFieldIsCastableAsInteger() throws Exception {
         String fieldName = "begin";
         PrimeFinder primeFinder = new PrimeFinder();
         Class primeFinderClass = primeFinder.getClass();
@@ -62,6 +65,53 @@ public class PrimeFinderTest {
         Object fieldValue = field.get(primeFinder);
         Integer actualValue = (Integer) fieldValue;
         Assert.assertEquals("Field " + fieldName + " start value", expectedValue, actualValue);
+    }
+
+    @Test
+    public void primesFieldExists() {
+        String fieldName = "primes";
+        PrimeFinder primeFinder = new PrimeFinder();
+        Class primeFinderClass = primeFinder.getClass();
+        try {
+            Field field = primeFinderClass.getDeclaredField(fieldName);
+        } catch (Exception e) {
+            Assert.fail("Field '" + fieldName + "' throws " + e.toString());
+        }
+    }
+
+    @Test
+    public void primesFieldIsLinkedList() throws Exception {
+        String fieldName = "primes";
+        PrimeFinder primeFinder = new PrimeFinder();
+        Class primeFinderClass = primeFinder.getClass();
+        Field field = primeFinderClass.getDeclaredField(fieldName);
+        field.setAccessible(true);
+        Object fieldValue = field.get(primeFinder);
+        Assert.assertTrue(fieldValue instanceof LinkedList);
+    }
+
+    @Test
+    public void primesFieldStartsEmpty() throws Exception {
+        String fieldName = "primes";
+        PrimeFinder primeFinder = new PrimeFinder();
+        Class primeFinderClass = primeFinder.getClass();
+        Field field = primeFinderClass.getDeclaredField(fieldName);
+        field.setAccessible(true);
+        LinkedList fieldValue = (LinkedList) field.get(primeFinder);
+        Assert.assertTrue(fieldValue.isEmpty());
+    }
+
+    @Test
+    public void calculateNextMethodExists() {
+        String methodName = "calculateNext";
+        PrimeFinder primeFinder = new PrimeFinder();
+        Class primeFinderClass = primeFinder.getClass();
+        try {
+            Method method = primeFinderClass.getDeclaredMethod(methodName);
+        } catch (Exception e) {
+            Assert.fail("Method '" + methodName + "' throws " + e.toString());
+            //Next step, add the method
+        }
     }
 }
 
