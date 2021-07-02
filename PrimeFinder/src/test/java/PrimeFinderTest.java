@@ -3,12 +3,14 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
 
 public class PrimeFinderTest {
+    private Integer[] referencePrimes =  {2,3,5,7,11};
     @Before
     public void setUp() {
     }
@@ -110,9 +112,79 @@ public class PrimeFinderTest {
             Method method = primeFinderClass.getDeclaredMethod(methodName);
         } catch (Exception e) {
             Assert.fail("Method '" + methodName + "' throws " + e.toString());
-            //Next step, add the method
         }
     }
+
+    @Test
+    public void getPrimesMethodExists() {
+        String methodName = "getPrimes";
+        PrimeFinder primeFinder = new PrimeFinder();
+        Class primeFinderClass = primeFinder.getClass();
+        try {
+            Method method = primeFinderClass.getDeclaredMethod(methodName);
+        } catch (Exception e) {
+            Assert.fail("Method '" + methodName + "' throws " + e.toString());
+        }
+    }
+
+    @Test
+    public void getPrimesReturnsLinkedList(){
+        String expectedValue = "java.util.LinkedList";
+        String actualValue;
+        PrimeFinder primeFinder = new PrimeFinder();
+        actualValue = primeFinder.getPrimes().getClass().getName();
+        Assert.assertEquals(expectedValue,actualValue);
+    }
+
+    @Test
+    public void atStartGetPrimesReturnsEmptyLinkedList(){
+        PrimeFinder primeFinder = new PrimeFinder();
+        LinkedList<Integer> result = primeFinder.getPrimes();
+        Assert.assertTrue("at start getPrimes should return an empty list.", result.isEmpty());
+    }
+
+    @Test
+    public void calculateNextOneTimePrimesLengthMatches(){
+        Integer repeats = 1;
+        Integer expectedValue = repeats;
+        Integer actualValue;
+        PrimeFinder primeFinder = new PrimeFinder();
+        for (Integer i = 0; i < repeats; i++){
+            primeFinder.calculateNext();
+        }
+        LinkedList<Integer> result = primeFinder.getPrimes();
+        actualValue = result.size();
+        Assert.assertEquals(repeats +"x calculateNext, Primes length "+repeats,expectedValue,actualValue);
+    }
+
+    @Test
+    public void calculateNextOneRepeatPrimesCheckLastValue(){
+        Integer repeats = 1;
+        Integer expectedValue = referencePrimes[repeats-1];
+        Integer actualValue;
+        PrimeFinder primeFinder = new PrimeFinder();
+        for (Integer i = 0; i < repeats; i++){
+            primeFinder.calculateNext();
+        }
+        LinkedList<Integer> result = primeFinder.getPrimes();
+        actualValue = result.getLast();
+        Assert.assertEquals(repeats +"x calculateNext, last prime found",expectedValue,actualValue);
+    }
+
+    @Test
+    public void calculateNextTwoTimesPrimesLengthMatches(){
+        Integer repeats = 2;
+        Integer expectedValue = repeats;
+        Integer actualValue;
+        PrimeFinder primeFinder = new PrimeFinder();
+        for (Integer i = 0; i < repeats; i++){
+            primeFinder.calculateNext();
+        }
+        LinkedList<Integer> result = primeFinder.getPrimes();
+        actualValue = result.size();
+        Assert.assertEquals(repeats +"x calculateNext, Primes length "+repeats,expectedValue,actualValue);
+    }
+
 }
 
 
@@ -127,3 +199,12 @@ public class PrimeFinderTest {
 // means you have to either catch it with try{} catch{}
 // or add it to the method declaration
 // public void beginFieldStartValueIs2() throws Exception{
+
+// asserting for instanceof LinkedList possible
+// asserting for instanceof LinkedList<Integer/String/...> not possible
+// it's just how it is
+
+// kunt geen miscasts of wrong type errors catchen
+// dat zet het hele testen op de helling, want hij wilt geen een
+// van de testen doen als ie zo eentje heeft dus ge weet niet
+// wie wat waarom
