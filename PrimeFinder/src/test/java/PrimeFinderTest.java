@@ -185,6 +185,47 @@ public class PrimeFinderTest {
         Assert.assertEquals(repeats +"x calculateNext, Primes length "+repeats,expectedValue,actualValue);
     }
 
+    @Test
+    public void calculateNextTwoRepeatsPrimesCheckLastValue(){
+        Integer repeats = 2;
+        Integer expectedValue = referencePrimes[repeats-1];
+        Integer actualValue;
+        PrimeFinder primeFinder = new PrimeFinder();
+        for (Integer i = 0; i < repeats; i++){
+            primeFinder.calculateNext();
+        }
+        LinkedList<Integer> result = primeFinder.getPrimes();
+        actualValue = result.getLast();
+        Assert.assertEquals(repeats +"x calculateNext, last prime found",expectedValue,actualValue);
+    }
+
+    @Test
+    public void calculateNextThreeTimesPrimesLengthMatches(){
+        Integer repeats = 3;
+        Integer expectedValue = repeats;
+        Integer actualValue;
+        PrimeFinder primeFinder = new PrimeFinder();
+        for (Integer i = 0; i < repeats; i++){
+            primeFinder.calculateNext();
+        }
+        LinkedList<Integer> result = primeFinder.getPrimes();
+        actualValue = result.size();
+        Assert.assertEquals(repeats +"x calculateNext, Primes length "+repeats,expectedValue,actualValue);
+    }
+
+    @Test
+    public void calculateNextThreeRepeatsPrimesCheckLastValue(){
+        Integer repeats = 3;
+        Integer expectedValue = referencePrimes[repeats-1];
+        Integer actualValue;
+        PrimeFinder primeFinder = new PrimeFinder();
+        for (Integer i = 0; i < repeats; i++){
+            primeFinder.calculateNext();
+        }
+        LinkedList<Integer> result = primeFinder.getPrimes();
+        actualValue = result.getLast();
+        Assert.assertEquals(repeats +"x calculateNext, last prime found",expectedValue,actualValue);
+    }
 }
 
 
