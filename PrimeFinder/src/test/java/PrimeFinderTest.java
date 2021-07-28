@@ -226,6 +226,95 @@ public class PrimeFinderTest {
         actualValue = result.getLast();
         Assert.assertEquals(repeats +"x calculateNext, last prime found",expectedValue,actualValue);
     }
+
+    @Test
+    public void findFirstXPrimesMethodExists(){
+        String methodName = "findFirstXPrimes";
+        PrimeFinder primeFinder = new PrimeFinder();
+        Class primeFinderClass = primeFinder.getClass();
+        try {
+            Method method = primeFinderClass.getDeclaredMethod(methodName);
+        } catch (Exception e) {
+            Assert.fail("Method '" + methodName + "' throws " + e.toString());
+        }
+    }
+
+    @Test
+    public void findFirstXPrimesReturnsLinkedList(){
+        String expectedValue = "java.util.LinkedList";
+        String actualValue;
+        PrimeFinder primeFinder = new PrimeFinder();
+        actualValue = primeFinder.findFirstXPrimes().getClass().getName();
+        Assert.assertEquals(expectedValue,actualValue);
+    }
+
+    @Test
+    public void atStartFindFirstXPrimesWithNoInputReturnsLinkedList(){
+        PrimeFinder primeFinder = new PrimeFinder();
+        LinkedList<Integer> result = primeFinder.findFirstXPrimes();
+        Assert.assertTrue("at start findFirstXPrimes with no input should return an empty list.", result.isEmpty());
+    }
+
+    @Test
+    public void atStartFindFirstXPrimesWithInputOneReturnsLinkedListLengthOne(){
+        Integer input = 1;
+        Integer expectedValue = input;
+        Integer actualValue;
+        PrimeFinder primeFinder = new PrimeFinder();
+        LinkedList<Integer> result = primeFinder.findFirstXPrimes(input);
+        actualValue = result.size();
+        Assert.assertEquals("at start FindFirstXPrimes with input "+input+" return list length",expectedValue,actualValue);
+    }
+
+    @Test
+    public void atStartFindFirstXPrimesWithInputOneReturnsLinkedListLastElementTwo(){
+    Integer input = 1;
+    Integer expectedValue = referencePrimes[input-1];
+    Integer actualValue;
+        PrimeFinder primeFinder = new PrimeFinder();
+    LinkedList<Integer> result = primeFinder.findFirstXPrimes(input);
+    actualValue = result.getLast();
+        Assert.assertEquals("at start FindFirstXPrimes with input "+input+" last prime found",expectedValue,actualValue);
+    }
+
+    @Test
+    public void atStartFindFirstXPrimesWithInputThreeReturnsLinkedListLengthThree(){
+        Integer input = 3;
+        Integer expectedValue = input;
+        Integer actualValue;
+        PrimeFinder primeFinder = new PrimeFinder();
+        LinkedList<Integer> result = primeFinder.findFirstXPrimes(input);
+        actualValue = result.size();
+        Assert.assertEquals("at start FindFirstXPrimes with input "+input+" return list length",expectedValue,actualValue);
+    }
+
+    @Test
+    public void atStartFindFirstXPrimesWithInputThreeReturnsLinkedListLastElementFive(){
+        Integer input = 3;
+        Integer expectedValue = referencePrimes[input-1];
+        Integer actualValue;
+        PrimeFinder primeFinder = new PrimeFinder();
+        LinkedList<Integer> result = primeFinder.findFirstXPrimes(input);
+        actualValue = result.getLast();
+        Assert.assertEquals("at start FindFirstXPrimes with input "+input+" last prime found",expectedValue,actualValue);
+    }
+
+    @Test
+    public void findFirstXPrimesInput5ThenInput3ReturnsLinkedListLength3(){
+        Integer input = 3;
+        Integer expectedValue = input;
+        Integer actualValue;
+        PrimeFinder primeFinder = new PrimeFinder();
+        primeFinder.findFirstXPrimes(5);
+        LinkedList<Integer> result = primeFinder.findFirstXPrimes(input);
+        actualValue = result.size();
+        Assert.assertEquals("After FindFirstXPrimes input 5, FindFirstXPrimes with input "+input+" return list length",expectedValue,actualValue);
+    }
+
+    //TODO function find first x primes
+    //TODO changing what you get from get primes doesnt change them in the primeFinder instance
+    //TODO function find all primes equal or smaller than x
+    //TODO function is x a prime? Seperate class? Is a check not a find
 }
 
 
