@@ -32,11 +32,14 @@ public class PrimeFinder {
       return result;
    }
 
-   public LinkedList<Integer> findFirstXPrimes(){
-      return getPrimes();
+   public LinkedList<Integer> returnFirstXPrimes(){
+      return new LinkedList<Integer>();
    }
 
-   public LinkedList<Integer> findFirstXPrimes(Integer request){
+   public LinkedList<Integer> returnFirstXPrimes(Integer request){
+      if (request < 0) {
+         request = 0;
+      }
       Integer currentCount = getPrimes().size();
       Integer difference = request-currentCount;
       if (difference >= 0) {
@@ -50,6 +53,11 @@ public class PrimeFinder {
             result.removeLast();
          }
       }
+      return result;
+   }
+
+   public LinkedList<Integer> returnAllPrimesSmallerThanX(){
+      LinkedList<Integer> result = new LinkedList<Integer>();
       return result;
    }
 }

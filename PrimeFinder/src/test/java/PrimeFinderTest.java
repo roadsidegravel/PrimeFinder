@@ -228,8 +228,8 @@ public class PrimeFinderTest {
     }
 
     @Test
-    public void findFirstXPrimesMethodExists(){
-        String methodName = "findFirstXPrimes";
+    public void returnFirstXPrimesMethodExists(){
+        String methodName = "returnFirstXPrimes";
         PrimeFinder primeFinder = new PrimeFinder();
         Class primeFinderClass = primeFinder.getClass();
         try {
@@ -240,80 +240,131 @@ public class PrimeFinderTest {
     }
 
     @Test
-    public void findFirstXPrimesReturnsLinkedList(){
+    public void returnFirstXPrimesReturnsLinkedList(){
         String expectedValue = "java.util.LinkedList";
         String actualValue;
         PrimeFinder primeFinder = new PrimeFinder();
-        actualValue = primeFinder.findFirstXPrimes().getClass().getName();
+        actualValue = primeFinder.returnFirstXPrimes().getClass().getName();
         Assert.assertEquals(expectedValue,actualValue);
     }
 
     @Test
-    public void atStartFindFirstXPrimesWithNoInputReturnsLinkedList(){
+    public void atStartreturnFirstXPrimesWithNoInputReturnsEmptyLinkedList(){
         PrimeFinder primeFinder = new PrimeFinder();
-        LinkedList<Integer> result = primeFinder.findFirstXPrimes();
-        Assert.assertTrue("at start findFirstXPrimes with no input should return an empty list.", result.isEmpty());
+        LinkedList<Integer> result = primeFinder.returnFirstXPrimes();
+        Assert.assertTrue("at start returnFirstXPrimes with no input should return an empty list.", result.isEmpty());
     }
 
     @Test
-    public void atStartFindFirstXPrimesWithInputOneReturnsLinkedListLengthOne(){
+    public void atStartreturnFirstXPrimesWithInputOneReturnsLinkedListLengthOne(){
         Integer input = 1;
         Integer expectedValue = input;
         Integer actualValue;
         PrimeFinder primeFinder = new PrimeFinder();
-        LinkedList<Integer> result = primeFinder.findFirstXPrimes(input);
+        LinkedList<Integer> result = primeFinder.returnFirstXPrimes(input);
         actualValue = result.size();
-        Assert.assertEquals("at start FindFirstXPrimes with input "+input+" return list length",expectedValue,actualValue);
+        Assert.assertEquals("at start returnFirstXPrimes with input "+input+" return list length",expectedValue,actualValue);
     }
 
     @Test
-    public void atStartFindFirstXPrimesWithInputOneReturnsLinkedListLastElementTwo(){
+    public void atStartreturnFirstXPrimesWithInputOneReturnsLinkedListLastElementTwo(){
     Integer input = 1;
     Integer expectedValue = referencePrimes[input-1];
     Integer actualValue;
         PrimeFinder primeFinder = new PrimeFinder();
-    LinkedList<Integer> result = primeFinder.findFirstXPrimes(input);
+    LinkedList<Integer> result = primeFinder.returnFirstXPrimes(input);
     actualValue = result.getLast();
-        Assert.assertEquals("at start FindFirstXPrimes with input "+input+" last prime found",expectedValue,actualValue);
+        Assert.assertEquals("at start returnFirstXPrimes with input "+input+" last prime found",expectedValue,actualValue);
     }
 
     @Test
-    public void atStartFindFirstXPrimesWithInputThreeReturnsLinkedListLengthThree(){
+    public void atStartreturnFirstXPrimesWithInputThreeReturnsLinkedListLengthThree(){
         Integer input = 3;
         Integer expectedValue = input;
         Integer actualValue;
         PrimeFinder primeFinder = new PrimeFinder();
-        LinkedList<Integer> result = primeFinder.findFirstXPrimes(input);
+        LinkedList<Integer> result = primeFinder.returnFirstXPrimes(input);
         actualValue = result.size();
-        Assert.assertEquals("at start FindFirstXPrimes with input "+input+" return list length",expectedValue,actualValue);
+        Assert.assertEquals("at start returnFirstXPrimes with input "+input+" return list length",expectedValue,actualValue);
     }
 
     @Test
-    public void atStartFindFirstXPrimesWithInputThreeReturnsLinkedListLastElementFive(){
+    public void atStartreturnFirstXPrimesWithInputThreeReturnsLinkedListLastElementFive(){
         Integer input = 3;
         Integer expectedValue = referencePrimes[input-1];
         Integer actualValue;
         PrimeFinder primeFinder = new PrimeFinder();
-        LinkedList<Integer> result = primeFinder.findFirstXPrimes(input);
+        LinkedList<Integer> result = primeFinder.returnFirstXPrimes(input);
         actualValue = result.getLast();
-        Assert.assertEquals("at start FindFirstXPrimes with input "+input+" last prime found",expectedValue,actualValue);
+        Assert.assertEquals("at start returnFirstXPrimes with input "+input+" last prime found",expectedValue,actualValue);
     }
 
     @Test
-    public void findFirstXPrimesInput5ThenInput3ReturnsLinkedListLength3(){
+    public void returnFirstXPrimesInput5ThenInput3ReturnsLinkedListLength3(){
         Integer input = 3;
         Integer expectedValue = input;
         Integer actualValue;
         PrimeFinder primeFinder = new PrimeFinder();
-        primeFinder.findFirstXPrimes(5);
-        LinkedList<Integer> result = primeFinder.findFirstXPrimes(input);
+        primeFinder.returnFirstXPrimes(5);
+        LinkedList<Integer> result = primeFinder.returnFirstXPrimes(input);
         actualValue = result.size();
-        Assert.assertEquals("After FindFirstXPrimes input 5, FindFirstXPrimes with input "+input+" return list length",expectedValue,actualValue);
+        Assert.assertEquals("After returnFirstXPrimes input 5, returnFirstXPrimes with input "+input+" return list length",expectedValue,actualValue);
     }
 
-    //TODO function find first x primes
-    //TODO changing what you get from get primes doesnt change them in the primeFinder instance
-    //TODO function find all primes equal or smaller than x
+    @Test
+    public void returnFirstXPrimesInput0ReturnsEmptyLinkedList(){
+        Integer input = 0;
+        Integer expectedValue = input;
+        Integer actualValue;
+        PrimeFinder primeFinder = new PrimeFinder();
+        LinkedList<Integer> result = primeFinder.returnFirstXPrimes(input);
+        actualValue = result.size();
+        Assert.assertEquals("at start returnFirstXPrimes with input "+input+" return list length",expectedValue,actualValue);
+    }
+
+    @Test
+    public void returnFirstXPrimesInputMinus3ReturnsEmptyLinkedList(){
+        Integer input = -3;
+        Integer expectedValue = 0;
+        Integer actualValue;
+        PrimeFinder primeFinder = new PrimeFinder();
+        LinkedList<Integer> result = primeFinder.returnFirstXPrimes(input);
+        actualValue = result.size();
+        Assert.assertEquals("at start returnFirstXPrimes with input "+input+" return list length",expectedValue,actualValue);
+    }
+
+    @Test
+    public void changingResultListDoesntChangeListInPrimeFinder(){
+        PrimeFinder primeFinder = new PrimeFinder();
+        LinkedList<Integer> firstResult = primeFinder.returnFirstXPrimes(5);
+        Integer sizeBeforeChanges = firstResult.size();
+        firstResult.removeLast();
+        firstResult.removeFirst();
+        Integer sizeAfterChanges = firstResult.size();
+        LinkedList<Integer> secondResult = primeFinder.getPrimes();
+        Integer getPrimesSize = secondResult.size();
+        Assert.assertEquals("Changing the result list should not affect primeFinder",sizeBeforeChanges,getPrimesSize);
+        Assert.assertNotEquals( "the result list should change in size",sizeBeforeChanges,sizeAfterChanges);
+    }
+
+    @Test
+    public void returnAllPrimesSmallerThanXNoInputReturnsLinkedList(){
+        String expectedValue = "java.util.LinkedList";
+        String actualValue;
+        PrimeFinder primeFinder = new PrimeFinder();
+        actualValue = primeFinder.returnAllPrimesSmallerThanX().getClass().getName();
+        Assert.assertEquals(expectedValue,actualValue);
+    }
+
+    @Test
+    public void returnAllPrimesSmallerThanXNoInputReturnsEmptyLinkedList() {
+        PrimeFinder primeFinder = new PrimeFinder();
+        LinkedList<Integer> result = primeFinder.returnAllPrimesSmallerThanX();
+        Assert.assertTrue("returnAllPrimesSmallerThanX with no input should return an empty list.", result.isEmpty());
+    }
+    //TODO function return all primes equal or smaller than x
+    //TODO input 0, input 8, input -5
+    //TODO return x primes then return no primes should return empty list test
     //TODO function is x a prime? Seperate class? Is a check not a find
 }
 
